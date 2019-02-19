@@ -52,7 +52,8 @@ public @interface YYYYMMDD {
      *
      * @return 指定されたフォーマット
      */
-    String allowFormat() default "yyyy/MM/dd";
+    /** 変更点　日付のスラッシュ削除 */
+    String allowFormat() default "yyyyMMdd";
 
     /** 複数指定用のアノテーション */
     @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
