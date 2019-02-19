@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ご本人情報の入力</title>
+    <title>確認画面</title>
 
     <link rel="stylesheet" th:href="@{http://fonts.googleapis.com/css?family=Exo:900}"/>
     <link rel="stylesheet"
@@ -27,43 +27,35 @@
             </div>
             <div class="ui middle center aligned grid ">
                 <div class="user-block">
-                    <h1 class="ui aligned header teal">お申込み情報</h1>
+                    <h1 class="ui aligned header teal">お申込み情報の内容確認</h1>
+                    <p>申込み内容はこちらでよろしいでしょうか？<br>よろしければ「この内容で申し込む」ボタンを押してください。</p>
 
-                    <form class="ui form" method="post" action="/action/order/inputJob">
+                    <form class="ui form" method="post" action="/action/order/create">
 
                         <div class="ui horizontal divider">ご本人について</div>
-
-                        <div class="ui statement">※「＊」は入力必須項目です。</div>
 
                         <table class="ui celled table">
                             <tbody>
                             <tr>
                                 <td>
-                                    <label>お名前（漢字）</label>
-                                    <p style="color:red;">＊</p>
+                                    <label>お名前（漢字）</label> <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：ＴＩＳ　太郎</p>
-                                    <div class="field" th:classappend="${errors.hasError('kanjiName')} ? 'error'">
-                                        <input type="text" name="kanjiName" th:value="${form.kanjiName}"/>
-                                        <p th:if="${errors.hasError('kanjiName')}"
-                                           th:text="${errors.getMessage('kanjiName')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="kanjiName" th:value="${form.kanjiName}"/>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="white-space: nowrap;">
+                                <td>
                                     <label>お名前（カタカナ）</label>
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：ティーアイエス　タロウ</p>
-                                    <div class="field" th:classappend="${errors.hasError('kanaName')} ? 'error'">
-                                        <input type="text" name="kanaName" th:value="${form.kanaName}"/>
-                                        <p th:if="${errors.hasError('kanaName')}"
-                                           th:text="${errors.getMessage('kanaName')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="kanaName" th:value="${form.kanaName}"/>
                                     </div>
                                 </td>
                             </tr>
@@ -73,28 +65,36 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：TIS TAROU</p>
-                                    <div class="field" th:classappend="${errors.hasError('alphabetName')} ? 'error'">
-                                        <input type="text" name="alphabetName" th:value="${form.alphabetName}"/>
-                                        <p th:if="${errors.hasError('alphabetName')}"
-                                           th:text="${errors.getMessage('alphabetName')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="alphabetName" th:value="${form.alphabetName}"/>
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <label>性別</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p> </p>
+                                        <input type="radio" name="gender" th:value="${item.code}"
+                                               th:text="${item.label}" th:field="*{gender}"
+                                               th:checked="${form.gender}==${item.code}"/>
+                                    </div>
+                                </td>
 
+                            </tr>
                             <tr>
                                 <td>
                                     <label>生年月日（半角）</label>
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：1990/01/01</p>
-                                    <div class="field" th:classappend="${errors.hasError('dateOfBirth')} ? 'error'">
-                                        <input type="text" name="dateOfBirth" th:value="${form.dateOfBirth}"/>
-                                        <p th:if="${errors.hasError('dateOfBirth')}"
-                                           th:text="${errors.getMessage('dateOfBirth')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="dateOfBirth" th:value="${form.dateOfBirth}"/>
                                     </div>
                                 </td>
                             </tr>
@@ -104,12 +104,10 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：123-4567</p>
-                                    <div class="field" th:classappend="${errors.hasError('zipCode')} ? 'error'">
-                                        <input type="text" class="zipcode" name="zipCode" th:value="${form.zipCode}"/>
-                                        <p th:if="${errors.hasError('zipCode')}"
-                                           th:text="${errors.getMessage('zipCode')}" class="error-message">
-                                        </p>
+
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" class="zipcode" name="zipCode" th:value="${form.zipCode}"/>
                                     </div>
                                 </td>
                             </tr>
@@ -119,12 +117,10 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：東京都新宿区西新宿８－１７－１</p>
-                                    <div class="field" th:classappend="${errors.hasError('address')} ? 'error'">
-                                        <input type="text" name="address" th:value="${form.address}"/>
-                                        <p th:if="${errors.hasError('address')}"
-                                           th:text="${errors.getMessage('address')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="address" th:value="${form.address}"/>
+
                                     </div>
                                 </td>
                             </tr>
@@ -134,12 +130,9 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：00-1111-2222</p>
-                                    <div class="field" th:classappend="${errors.hasError('homePhoneNumber')} ? 'error'">
-                                        <input type="text" name="homePhoneNumber" th:value="${form.homePhoneNumber}"/>
-                                        <p th:if="${errors.hasError('homePhoneNumber')}"
-                                           th:text="${errors.getMessage('homePhoneNumber')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="homePhoneNumber" th:value="${form.homePhoneNumber}"/>
                                     </div>
                                 </td>
                             </tr>
@@ -149,14 +142,10 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：080-0000-0000</p>
-                                    <div class="field"
-                                         th:classappend="${errors.hasError('mobilePhoneNumber')} ? 'error'">
-                                        <input type="text" name="mobilePhoneNumber"
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="mobilePhoneNumber"
                                                th:value="${form.mobilePhoneNumber}"/>
-                                        <p th:if="${errors.hasError('mobilePhoneNumber')}"
-                                           th:text="${errors.getMessage('mobilePhoneNumber')}" class="error-message">
-                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -166,69 +155,169 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <p>例：tiscon@example.com</p>
-                                    <div class="field" th:classappend="${errors.hasError('emailAddress')} ? 'error'">
-                                        <input type="text" name="emailAddress" th:value="${form.emailAddress}"/>
-                                        <p th:if="${errors.hasError('emailAddress')}"
-                                           th:text="${errors.getMessage('emailAddress')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="emailAddress" th:value="${form.emailAddress}"/>
                                     </div>
                                 </td>
                             </tr>
-
+                            <tr>
+                                <td>
+                                    <label>配偶者有無</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p> </p>
+                                        <input type="radio" name="married" th:value="${item.code}"
+                                               th:text="${item.label}" th:field="*{married}"
+                                               th:checked="${form.married}==${item.code}"/>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <label>昨年の所得（半角）</label>
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    <div class="field" th:classappend="${errors.hasError('income')} ? 'error'">
-                                        <input type="text" class="number" name="income" th:value="${form.income}"/><span
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" class="number" name="income" th:value="${form.income}"/><span
                                             class="unit">万円</span>
-                                        <p th:if="${errors.hasError('income')}" th:text="${errors.getMessage('income')}"
-                                           class="error-message">
-                                        </p>
                                     </div>
                                 </td>
                             </tr>
-
+                            <tr>
+                                <td>
+                                    <label>ご職業</label>
+                                    <p style="color:red;">＊</p></td>
+                                <td>
+                                    <div>
+                                        <p> </p>
+                                        <input type="radio" name="job" th:value="${item.code}" th:text="${item.label}"
+                                               th:field="*{job}" th:checked="${form.job}==${item.code}"/>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <label>「その他 (有職）」を選んだ方は内容をご記入下さい（全角）</label>
                                 </td>
                                 <td>
-                                    <div class="field"
-                                         th:classappend="|${errors.hasError('otherJob')?'error': ''} ${errors.hasError('valueOtherJob')?'error': ''}|">
-                                        <input type="text" name="otherJob" th:value="${form.otherJob}"/>
-                                        <p th:if="${errors.hasError('otherJob')}"
-                                           th:text="${errors.getMessage('otherJob')}" class="error-message">
-                                        </p>
-                                        <p th:if="${errors.hasError('valueOtherJob')}"
-                                           th:text="${errors.getMessage('valueOtherJob')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="otherJob" th:value="${form.otherJob}"/>
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <label>過去5年以内に、病気やケガで7日間以上にわたって医師の診察・検査・治療・投薬をうけたことがありますか</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td>
+                                    <div >
+                                        <p> </p>
+                                        <input type="radio" name="treated" th:value="${item.code}"
+                                               th:text="${item.label}" th:field="*{treated}"
+                                               th:checked="${form.treated}==${item.code}"/>
+                                    </div>
 
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <label>「はい」 を選んだ方は内容をご記入下さい（全角）</label>
                                 </td>
                                 <td>
-                                    <div class="field"
-                                         th:classappend="|${errors.hasError('medicalHistory')?'error': ''} ${errors.hasError('valueMedicalHistory')?'error': ''}|">
-                                        <input type="text" name="medicalHistory" th:value="${form.medicalHistory}"/>
-                                        <p th:if="${errors.hasError('medicalHistory')}"
-                                           th:text="${errors.getMessage('medicalHistory')}" class="error-message">
-                                        </p>
-                                        <p th:if="${errors.hasError('valueMedicalHistory')}"
-                                           th:text="${errors.getMessage('valueMedicalHistory')}" class="error-message">
-                                        </p>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="medicalHistory" th:value="${form.medicalHistory}"/>
+
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+
+                        <div class="ui middle center aligned grid">
+                            <div class="user-block">
+                                <h1 class="ui aligned header teal">お申込み情報</h1>
+
+                                <form class="ui form" method="post" action="/action/order/confirm">
+
+                                    <div class="ui horizontal divider">お勤め先について</div>
+
+                                    <div class="ui statement">
+                                        ご職業が「経営・自営業」、「会社員」、「契約・派遣社員」、「公務員」、「民間団体」、「その他（有職）」の方は、以下の項目をご入力ください。
+                                    </div>
+
+                                    <table class="ui celled table">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <label>お勤め先名（全角）</label>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p> </p>
+                                                    <input type="hidden" name="employerName" th:value="${form.employerName}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>お勤め先郵便番号（半角）</label>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p> </p>
+                                                    <input type="hidden" name="employerZipCode" th:value="${form.employerZipCode}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap;">
+                                                <label>お勤め先住所（全角）</label>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p> </p>
+                                                    <input type="hidden" name="employerAddress" th:value="${form.employerAddress}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>お勤め先電話番号（半角）</label>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p> </p>
+                                                    <input type="hidden" name="employerPhoneNumber"
+                                                           th:value="${form.employerPhoneNumber}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>業種</label>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p> </p>
+                                                    <input type="radio" name="industryType" th:value="${item.code}"
+                                                           th:text="${item.label}" th:field="*{industryType}"
+                                                           th:checked="${form.industryType}==${item.code}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
 
                         <div class="ui column grid">
                             <div class="eight wide column left aligned">
@@ -238,7 +327,7 @@
                                 </button>
                             </div>
                             <div class="eight wide column right aligned">
-                                <button class="ui teal button angle right icon">次へ（お勤め先情報の入力）</button>
+                                <button class="ui teal button angle right icon">この内容で申し込む</button>
                             </div>
                         </div>
                     </form>
