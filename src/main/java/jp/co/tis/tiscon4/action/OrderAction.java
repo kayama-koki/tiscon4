@@ -153,13 +153,17 @@ public class OrderAction {
         return new HttpResponse("job.html");
     }
 
-    /**
-     * 完了ページを表示する。
-     *
-     * @param req リクエストコンテキスト
-     * @param ctx HTTPリクエストの処理に関連するサーバ側の情報
-     * @return HTTPレスポンス
-     */
+    public HttpResponse confirm(HttpRequest req, ExecutionContext ctx) {
+        return new HttpResponse("confirm.html");
+    }
+
+        /**
+        * 完了ページを表示する。
+        *
+        * @param req リクエストコンテキスト
+        * @param ctx HTTPリクエストの処理に関連するサーバ側の情報
+        * @return HTTPレスポンス
+        */
     public HttpResponse completed(HttpRequest req, ExecutionContext ctx) {
         return new HttpResponse("completed.html");
     }
