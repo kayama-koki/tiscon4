@@ -98,8 +98,15 @@ public class OrderAction {
 
         ctx.setRequestScopedVar("form", new JobForm());
         ctx.setRequestScopedVar("industryTypes", IndustryType.values());
+        //変更箇所
+        if(form.getJob().equals("主婦") || form.getJob().equals("学生") || form.getJob().equals("年金受給者の方") ||
+                form.getJob().equals("パート・アルバイト") || form.getJob().equals("その他 (無職）"){
+            return new HttpResponse("completed.html");  //createメソッドを呼び出す or 登録確認画面に変換させる
+        }
+        else{
+            return new HttpResponse("job.html");
+        }
 
-        return new HttpResponse("job.html");
     }
 
     /**
