@@ -31,7 +31,7 @@
                 <div class="user-block">
                     <h1 class="ui aligned header teal">お申込み情報</h1>
 
-                    <form class="ui form" method="post" action="/action/order/create">
+                    <form class="ui form" method="post" action="/action/order/confirm">
 
                         <div class="ui horizontal divider">お勤め先について</div>
 
@@ -127,7 +127,7 @@
                                 </button>
                             </div>
                             <div class="eight wide column right aligned">
-                                <button class="ui teal button angle right icon">申し込む</button>
+                                <button class="ui teal button angle right icon">確認画面へ</button>
                             </div>
                         </div>
                         <input type="hidden" name="nablarch_token" th:value="${nablarch_request_token}"/>
