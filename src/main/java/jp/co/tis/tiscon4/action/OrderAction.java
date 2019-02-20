@@ -106,7 +106,12 @@ public class OrderAction {
         //変更箇所
         if(form.getJob().equals("主婦") || form.getJob().equals("学生") || form.getJob().equals("年金受給者の方") ||
                 form.getJob().equals("パート・アルバイト") || form.getJob().equals("その他 (無職）")){
-            return new HttpResponse("completed.html");  //登録確認画面に変更させる
+
+            BeanUtil.copy(form, insOrder);
+
+            ctx.setRequestScopedVar("form", insOrder);
+
+            return new HttpResponse("confirm2.html");
         }
         else{
             return new HttpResponse("job.html");
@@ -129,7 +134,14 @@ public class OrderAction {
 
         return new HttpResponse("user.html");
     }
-
+    //変更箇所
+    /**
+     * 登録確認画面を表示する(正常)
+     *
+     * @param req リクエストコンテキスト
+     * @param ctx HTTPリクエストの処理に関連するサーバ側の情報
+     * @return HTTPレスポンス
+     */
     @InjectForm(form = JobForm.class)
     @OnError(type = ApplicationException.class, path = "forward://inputJobForError")
     @UseToken
@@ -144,6 +156,7 @@ public class OrderAction {
         return new HttpResponse("confirm.html");
     }
 
+
     /**
      * 申し込み情報をデータベースに登録する。
      *
@@ -151,7 +164,7 @@ public class OrderAction {
      * @param ctx HTTPリクエストの処理に関連するサーバ側の情報
      * @return HTTPレスポンス
      */
-    @InjectForm(form = JobForm.class)
+
     @OnError(type = ApplicationException.class, path = "forward://inputJobForError")
     @OnDoubleSubmission(path = "doubleSubmissionError.html")
     public HttpResponse create(HttpRequest req, ExecutionContext ctx) {
