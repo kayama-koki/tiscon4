@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>確認画面</title>
+
+    <link rel="stylesheet" th:href="@{http://fonts.googleapis.com/css?family=Exo:900}"/>
+    <link rel="stylesheet"
+          th:href="@{https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<nav th:insert="header.html :: header"></nav>
+
+<div class="full height image">
+    <div class="ui main container">
+        <div class="ui information container">
+            <div class="acceptance-icon" style="border:solid 3px #4B610B;" th:if="${insOrder.insuranceType.equals('treat')}">
+                <img src="/img/icon_treat.png">
+            </div>
+            <div class="acceptance-icon" style="border:solid 3px #B40404;"
+                 th:if="${insOrder.insuranceType.equals('treatLady')}">
+                <img src="/img/icon_treatLady.png">
+            </div>
+            <div class="acceptance-icon" style="border:solid 3px #0174DF;" th:if="${insOrder.insuranceType.equals('future')}">
+                <img src="/img/icon_future.png">
+            </div>
+            <div class="ui middle center aligned grid ">
+                <div class="user-block">
+                    <h1 class="ui aligned header teal">お申込み情報の内容確認</h1>
+                    <p>申込み内容はこちらでよろしいでしょうか？<br>よろしければ「この内容で申し込む」ボタンを押してください。</p>
+
+                    <form class="ui form" method="post" action="/action/order/create">
+
+                        <div class="ui horizontal divider">ご本人について</div>
+
+                        <table class="ui celled table">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <label>お名前（漢字）</label> <p style="color:red;">＊</p>
+                                </td>
+                                <td  th:text="${form.kanjiName}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>お名前（カタカナ）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td  th:text="${form.kanaName}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>お名前（ローマ字）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td  th:text="${form.alphabetName}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>性別</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.getGender()}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>生年月日（半角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td  th:text="${form.dateOfBirth}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>郵便番号（半角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.zipCode}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>ご住所（全角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td  th:text="${form.address}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>自宅電話番号（半角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.homePhoneNumber}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>携帯電話番号（半角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.mobilePhoneNumber}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>メールアドレス（半角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.emailAddress}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>配偶者有無</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.married}" ></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>昨年の所得（半角）</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td th:text="${form.income}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>ご職業</label>
+                                    <p style="color:red;">＊</p></td>
+                                <td th:text="${job}" ></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>「その他 (有職）」を選んだ方は内容をご記入下さい（全角）</label>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p> </p>
+                                        <input type="hidden" name="otherJob" th:value="${form.otherJob}"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>過去5年以内に、病気やケガで7日間以上にわたって医師の診察・検査・治療・投薬をうけたことがありますか</label>
+                                    <p style="color:red;">＊</p>
+                                </td>
+                                <td  th:text="${form.treated}"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>「はい」 を選んだ方は内容をご記入下さい（全角）</label>
+                                </td>
+                                <td th:text="${form.medicalHistory}"></tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="ui column grid">
+                            <div class="eight wide column left aligned">
+                                <!--/*戻る場合、formの送り先を強制的に書き換える*/-->
+                                <button class="ui button angle left icon"
+                                        onclick="form.action='/action/order/backToAccept';return true">戻る
+                                </button>
+                            </div>
+                            <div class="eight wide column right aligned">
+                                <button class="ui teal button angle right icon">この内容で申し込む</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="nablarch_token" th:value="${nablarch_request_token}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
