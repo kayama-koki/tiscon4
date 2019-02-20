@@ -158,27 +158,6 @@ public class OrderAction {
 
 
     /**
-     * 登録確認画面を表示する(お勤め先情報省略の場合)
-     *
-     * @param req リクエストコンテキスト
-     * @param ctx HTTPリクエストの処理に関連するサーバ側の情報
-     * @return HTTPレスポンス
-     */
-    /**@InjectForm(form = JobForm.class)
-    @OnError(type = ApplicationException.class, path = "forward://inputJobForError")
-    @UseToken
-    public HttpResponse confirm(HttpRequest req, ExecutionContext ctx) {
-        UserForm form = ctx.getRequestScopedVar("form");
-        InsuranceOrder insOrder = SessionUtil.get(ctx, "insOrder");
-
-        BeanUtil.copy(form, insOrder);
-
-        ctx.setRequestScopedVar("form", insOrder);
-
-        return new HttpResponse("confirm2.html");
-    }*/
-
-    /**
      * 申し込み情報をデータベースに登録する。
      *
      * @param req リクエストコンテキスト
