@@ -130,6 +130,20 @@ public class OrderAction {
         return new HttpResponse("user.html");
     }
 
+    @InjectForm(form = JobForm.class)
+    @OnError(type = ApplicationException.class, path = "forward://inputJobForError")
+    @UseToken
+    public HttpResponse confirm(HttpRequest req, ExecutionContext ctx) {
+        JobForm form = ctx.getRequestScopedVar("form");
+        InsuranceOrder insOrder = SessionUtil.get(ctx, "insOrder");
+
+        BeanUtil.copy(form, insOrder);
+
+        ctx.setRequestScopedVar("form", insOrder);
+
+        return new HttpResponse("confirm.html");
+    }
+
     /**
      * 申し込み情報をデータベースに登録する。
      *
@@ -141,10 +155,9 @@ public class OrderAction {
     @OnError(type = ApplicationException.class, path = "forward://inputJobForError")
     @OnDoubleSubmission(path = "doubleSubmissionError.html")
     public HttpResponse create(HttpRequest req, ExecutionContext ctx) {
-        JobForm form = ctx.getRequestScopedVar("form");
-        InsuranceOrder insOrder = SessionUtil.get(ctx, "insOrder");
 
-        BeanUtil.copy(form, insOrder);
+
+        InsuranceOrder insOrder = SessionUtil.get(ctx, "insOrder");
 
         UniversalDao.insert(insOrder);
 
@@ -167,9 +180,6 @@ public class OrderAction {
         return new HttpResponse("job.html");
     }
 
-    public HttpResponse confirm(HttpRequest req, ExecutionContext ctx) {
-        return new HttpResponse("confirm.html");
-    }
 
         /**
         * 完了ページを表示する。
