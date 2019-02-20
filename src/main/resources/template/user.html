@@ -7,6 +7,7 @@
     <link rel="stylesheet"
           th:href="@{https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!--<script src="../js/jquery.autoKana.js"></script>-->
 </head>
 <body>
 
@@ -45,7 +46,7 @@
                                 <td>
                                     <p>例：ＴＩＳ　太郎</p>
                                     <div class="field" th:classappend="${errors.hasError('kanjiName')} ? 'error'">
-                                        <input type="text" name="kanjiName" th:value="${form.kanjiName}"/>
+                                        <input type="text" name="kanjiName" id="kanjiName" th:value="${form.kanjiName}"/>
                                         <p th:if="${errors.hasError('kanjiName')}"
                                            th:text="${errors.getMessage('kanjiName')}" class="error-message">
                                         </p>
@@ -60,11 +61,19 @@
                                 <td>
                                     <p>例：ティーアイエス　タロウ</p>
                                     <div class="field" th:classappend="${errors.hasError('kanaName')} ? 'error'">
-                                        <input type="text" name="kanaName" th:value="${form.kanaName}"/>
+                                        <input type="text" name="kanaName" id="kanaName" th:value="${form.kanaName}"/>
                                         <p th:if="${errors.hasError('kanaName')}"
                                            th:text="${errors.getMessage('kanaName')}" class="error-message">
                                         </p>
                                     </div>
+                                    <!--<script src="https://github.com/harisenbon/autokana.git"></script>-->
+                                    <!--<script src="../js/jquery.autoKana.js"></script>-->
+                                    <!--<script>$(function() {
+                                    $.fn.autoKana('#kanjiName', '#kanaName', {
+                                    katakana : true  //true：カタカナ、false：ひらがな（デフォルト）
+                                    });
+                                    });
+                                    </script>-->
                                 </td>
                             </tr>
                             <tr>
@@ -107,7 +116,7 @@
                                     <p style="color:red;">＊</p>
                                 </td>
                                 <td>
-                                    /** スラッシュ削除 */
+                                    <!--スラッシュ削除 -->
                                     <p>例：19900101</p>
                                     <div class="field" th:classappend="${errors.hasError('dateOfBirth')} ? 'error'">
                                         <input type="text" name="dateOfBirth" th:value="${form.dateOfBirth}"/>
