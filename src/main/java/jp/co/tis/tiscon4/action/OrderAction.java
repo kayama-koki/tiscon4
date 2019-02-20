@@ -5,7 +5,7 @@ import jp.co.tis.tiscon4.common.code.IndustryType;
 import jp.co.tis.tiscon4.common.code.JobType;
 import jp.co.tis.tiscon4.common.code.MarriedType;
 import jp.co.tis.tiscon4.common.code.TreatedType;
-import jp.co.tis.tiscon4.dto.ZipcodeDto;
+//import jp.co.tis.tiscon4.dto.ZipcodeDto;
 import jp.co.tis.tiscon4.entity.InsuranceOrder;
 import jp.co.tis.tiscon4.form.AcceptForm;
 import jp.co.tis.tiscon4.form.IndexForm;
@@ -92,14 +92,26 @@ public class OrderAction {
             throw new ApplicationException(message);
         }
 
-        UniversalDao.findAllBySqlFile(ZipcodeDto.class, "ZIPCODE_LIST");
+        //変更箇所
+        //任意のSQL(SQLファイル)で検索する⇦不要と判断
+        //SQL⇦データベース言語の一種
+        //UniversalDao.findAllBySqlFile(ZipcodeDto.class, "ZIPCODE_LIST");
 
-        BeanUtil.copy(form, insOrder);
+        BeanUtil.copy(form, insOrder);   //BeanからBeanに値をコピー
 
         ctx.setRequestScopedVar("form", new JobForm());
         ctx.setRequestScopedVar("industryTypes", IndustryType.values());
 
-        return new HttpResponse("job.html");
+
+        //変更箇所
+        if(form.getJob().equals("主婦") || form.getJob().equals("学生") || form.getJob().equals("年金受給者の方") ||
+                form.getJob().equals("パート・アルバイト") || form.getJob().equals("その他 (無職）")){
+            return new HttpResponse("completed.html");  //createメソッドを呼び出す or 登録確認画面に変更させる
+        }
+        else{
+            return new HttpResponse("job.html");
+        }
+
     }
 
     /**
@@ -149,6 +161,8 @@ public class OrderAction {
     @UseToken
     public HttpResponse inputJobForError(HttpRequest req, ExecutionContext ctx) {
         ctx.setRequestScopedVar("industryTypes", IndustryType.values());
+
+
 
         return new HttpResponse("job.html");
     }
