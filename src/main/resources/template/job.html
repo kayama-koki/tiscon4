@@ -63,7 +63,7 @@
                                     <p>例：123-4567</p>
                                     <div class="field" th:classappend="${errors.hasError('employerZipCode')} ? 'error'">
                                         <input type="text" name="employerZipCode" th:value="${form.employerZipCode}"
-                                               maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','employerAddress','employerAddress');"/><!--変更箇所-->/>
+                                               maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','employerAddress','employerAddress');"/><!--変更箇所-->
                                         <p th:if="${errors.hasError('employerZipCode')}"
                                            th:text="${errors.getMessage('employerZipCode')}" class="error-message">
                                         </p>
